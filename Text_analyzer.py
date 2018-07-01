@@ -69,6 +69,7 @@ assert sent_count('Many, many sentences. Some, are long. Some are short!') == 3
 assert avg_sent_len('One. Two. Three! Four and five and six?') == 2
 assert avg_sent_len('Many, many sentences. Some, long. Some are short! Ha Ha!') == 2.5
 # assert word_list_desc('Try these words out. Try again words. Try!') == ['try', 'words', 'again', 'these', 'out']
+# lists are inherently unordered, making the assert fail
 assert word_with_count('Try these words out. Try again words. Try!') == {'again': 1, 'out': 1, 'these': 1, 'try': 3, 'words': 2}
 
 if __name__ == '__main__':
@@ -78,10 +79,10 @@ if __name__ == '__main__':
     print('Average word length: {}'.format(round(avg_word_len(text), 2)))
     print('Sentence count: {}'.format(sent_count(text)))
     print('Average sentence length: {}'.format(round(avg_sent_len(text), 2)))
-    if input('Type y to see a list of words in desceding order of frequency.Type p to pass.') == 'y':
+    if input('Type y to see a list of words in desceding order of frequency. Type p to pass.') == 'y':
         print(word_list_desc(text))
-    if input('Type y to see a dictionary of words with their frequency.Type q to quit.') == 'y':
-        print(common_word_dict(text))
+    if input('Type y to see a dictionary of words with their frequency. Type q to quit.') == 'y':
+        print(word_with_count(text))
 
 exit()
 
