@@ -1,6 +1,5 @@
 import re
 import sys
-import pandas as pd
 
 def read_file(path):
     ''' Reads file is as a string. '''
@@ -58,6 +57,7 @@ def freq_phrases(s):
     '''
     pass
 
+
 assert word_count('These, are words!!') == 3
 assert word_count('  will    this     work?') == 3
 assert unique_words('how many Words many words?') == 3
@@ -73,6 +73,7 @@ assert avg_sent_len('Many, many sentences. Some, long. Some are short! Ha Ha!') 
 assert word_with_count('Try these words out. Try again words. Try!') == {'again': 1, 'out': 1, 'these': 1, 'try': 3, 'words': 2}
 
 if __name__ == '__main__':
+    # if this is the main script, not a module imported into another script
     text = read_file(sys.argv[1])
     print('Word count: {}'.format(word_count(text)))
     print('Unique words: {}'.format(unique_words(text)))
@@ -84,5 +85,5 @@ if __name__ == '__main__':
     if input('Type y to see a dictionary of words with their frequency. Type q to quit.') == 'y':
         print(word_with_count(text))
 
-exit()
+# exit()
 
