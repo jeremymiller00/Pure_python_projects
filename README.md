@@ -1,0 +1,1 @@
+These are some Python projects that I'm working on to develop my skills. The ideas come from various sources. I've chosen to work on them either because I could learn something specific from the project, or simply because it looked interesting. 
