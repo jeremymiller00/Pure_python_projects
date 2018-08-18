@@ -1,5 +1,6 @@
 import re
 import sys
+import pandas as pd
 
 def read_file(path):
     ''' Reads file is as a string. '''
@@ -35,14 +36,15 @@ def avg_sent_len(s):
     ''' Returns average sentence length in inputted string as float. '''
     return sum(word_count(sent) for sent in get_sentences(s)) / sent_count(s)
 
-def word_list_desc(s):
-    ''' Returns a list in descending order of frequency of words used in inputted string. '''
+def word_count_desc(s):
+    ''' Returns a pandas DataFrame of frequently used words (at least one percent of text) in descending order of frequency from inputted string. '''
     word_count_dict = {}
     for w in set(get_words(s)):
         word_count_dict.update({w: get_words(s).count(w)})
     word_count_df = pd.DataFrame.from_dict(word_count_dict, orient='index')
     word_count_df = word_count_df.sort_values(by=[0], ascending=False)
-    return list(word_count_df.index)
+    word_count_df = word_count_df[word_count_df[0]>(word_count(s)/100)]
+    return word_count_df
 
 def word_with_count(s):
     ''' Returns dictionary object from inputted string: keys equal unique words, values equal word count. '''
@@ -74,16 +76,13 @@ assert word_with_count('Try these words out. Try again words. Try!') == {'again'
 
 if __name__ == '__main__':
     # if this is the main script, not a module imported into another script
-    text = read_file(sys.argv[1])
+    text = read_file(sys.argv[1]) #sys.argv[1] refers to second item in command
     print('Word count: {}'.format(word_count(text)))
     print('Unique words: {}'.format(unique_words(text)))
     print('Average word length: {}'.format(round(avg_word_len(text), 2)))
     print('Sentence count: {}'.format(sent_count(text)))
     print('Average sentence length: {}'.format(round(avg_sent_len(text), 2)))
-    if input('Type y to see a list of words in desceding order of frequency. Type p to pass.') == 'y':
-        print(word_list_desc(text))
-    if input('Type y to see a dictionary of words with their frequency. Type q to quit.') == 'y':
+    if input('Type y to see a list of most common words in desceding order of frequency. Type p to pass.') == 'y':
+        print(word_count_desc(text))
+    if input('Type y to see a dictionary of all words with their frequency. Type q to quit.') == 'y':
         print(word_with_count(text))
-
-# exit()
-
